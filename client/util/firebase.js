@@ -17,3 +17,10 @@ const app = initializeApp(firebaseConfig);
 // Auth and Google provider
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
+
+// Set language to auto-detect user's language
+provider.setDefaultLanguage(null);
+
+// Add scopes for profile information
+provider.addScope('profile');
+provider.addScope('email');

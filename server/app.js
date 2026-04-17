@@ -18,9 +18,9 @@ const allowedOrigins = [
   "http://localhost:5176",
   "https://clothes-12.onrender.com",
   "https://clothes-adminfront.onrender.com",
-  "https://clothes-sand.vercel.app",
-  "https://clothes-8gzj.vercel.app",
-  "https://clothes-admin-nine.vercel.app",
+  "https://clothes-user.vercel.app",
+  "https://clothes-6bmo.vercel.app",
+  "https://clothes-newadmin.vercel.app",
 ];
 
 app.use(express.json());

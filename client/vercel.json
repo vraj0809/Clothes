@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://clothes-8gzj.vercel.app/api/$1" },
+    { "source": "/api/(.*)", "destination": "https://clothes-6bmo.vercel.app/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

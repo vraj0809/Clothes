@@ -1,7 +1,7 @@
 import { createContext } from "react";
  export const Authdatacontext = createContext();
 const Authcontext = ({children}) => {
-   let serverurl = "https://clothes-8gzj.vercel.app"
+   let serverurl = "https://clothes-6bmo.vercel.app"
    let value = {
     serverurl
    }
