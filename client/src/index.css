@@ -1,0 +1,19 @@
+@import "./styles/global.css";
+@import "./styles/layout.css";
+@import "./styles/components.css";
+@import "./styles/product.css";
+@import "./styles/cart.css";
+
+/* Hide default browser password eye */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
