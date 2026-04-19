@@ -155,7 +155,7 @@ const Productdetail = () => {
               })()}
 
               <div className="pInfo__rating" aria-label={`Rating ${avgRating.toFixed(1)} out of 5`} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {avgRating > 0 && (
+                {productdata?.ratings?.length > 0 && (
   <div
     style={{
       backgroundColor: getRatingColor(avgRating),
