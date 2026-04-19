@@ -50,20 +50,15 @@ const Productdetail = () => {
       setAvgRating(0)
       return
     }
-
-    const ratingCount = productdata?.ratings?.length || 0
-    if (ratingCount > 0) {
-      const dbAvg = Number(productdata.avgrating)
-      if (!Number.isNaN(dbAvg) && dbAvg > 0) {
-        setAvgRating(dbAvg)
+    if (productdata?.ratings?.length > 0) {
+      if (typeof productdata.avgrating === 'number' && productdata.avgrating > 0) {
+        setAvgRating(productdata.avgrating)
         return
       }
-
-      const sum = productdata.ratings.reduce((acc, curr) => acc + Number(curr.rating || 0), 0)
-      setAvgRating(sum / ratingCount)
+      const sum = productdata.ratings.reduce((acc, curr) => acc + curr.rating, 0)
+      setAvgRating(sum / productdata.ratings.length)
       return
     }
-
     setAvgRating(0)
   }, [productdata])
 
@@ -159,11 +154,18 @@ const Productdetail = () => {
                 return null;
               })()}
 
-              <div className="pInfo__rating" aria-label={`Rating ${avgRating.toFixed(1)} out of 5`} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                {productdata?.ratings?.length > 0 && (
+              <div
+  className="pInfo__rating"
+  aria-label={`Rating ${avgRating.toFixed(1)} out of 5`}
+  style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+>
+  {/* ALWAYS SHOW RATING BOX */}
   <div
     style={{
-      backgroundColor: getRatingColor(avgRating),
+      backgroundColor:
+        productdata?.ratings?.length > 0
+          ? getRatingColor(avgRating)
+          : "#999",
       color: '#fff',
       padding: '4px 8px',
       borderRadius: '4px',
@@ -174,14 +176,20 @@ const Productdetail = () => {
       fontWeight: 'bold'
     }}
   >
-    <span>{avgRating.toFixed(1)}</span>
+    <span>
+      {productdata?.ratings?.length > 0
+        ? avgRating.toFixed(1)
+        : "0.0"}
+    </span>
     <FaStar size={12} color="#fff" />
   </div>
-)}
-                <span style={{ fontSize: "14px", color: "#444" }}>
-                  {productdata?.ratings?.length || 0} Review{(productdata?.ratings?.length || 0) !== 1 ? 's' : ''}
-                </span>
-              </div>
+
+  {/* REVIEW COUNT */}
+  <span style={{ fontSize: "14px", color: "#444" }}>
+    {productdata?.ratings?.length || 0} Review
+    {(productdata?.ratings?.length || 0) !== 1 ? 's' : ''}
+  </span>
+</div>
 
               <div className="pInfo__price">
                 {currency} {productdata.price}

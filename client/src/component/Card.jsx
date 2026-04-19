@@ -21,20 +21,15 @@ const Card = ({ name, image, id, price }) => {
       setAvgRating(0)
       return
     }
-
-    const ratingCount = product?.ratings?.length || 0
-    if (ratingCount > 0) {
-      const dbAvg = Number(product.avgrating)
-      if (!Number.isNaN(dbAvg) && dbAvg > 0) {
-        setAvgRating(dbAvg)
+    if (product?.ratings?.length > 0) {
+      if (typeof product.avgrating === 'number' && product.avgrating > 0) {
+        setAvgRating(product.avgrating)
         return
       }
-
-      const sum = product.ratings.reduce((acc, curr) => acc + Number(curr.rating || 0), 0)
-      setAvgRating(sum / ratingCount)
+      const sum = product.ratings.reduce((acc, curr) => acc + curr.rating, 0)
+      setAvgRating(sum / product.ratings.length)
       return
     }
-
     setAvgRating(0)
   }, [product])
 
@@ -89,19 +84,19 @@ const Card = ({ name, image, id, price }) => {
         <div className="productCard__name">{name}</div>
 
         <div className="productCard__priceRow" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div className="productCard__price">
-            {currency} {price}
-          </div>
-          {product?.ratings?.length > 0 && (
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <div style={{ backgroundColor: getRatingColor(avgRating), color: "#fff", padding: "2px 6px", borderRadius: "4px", display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", fontWeight: "bold" }}>
-                <span>{avgRating.toFixed(1)}</span>
-                <FaStar size={10} />
-              </div>
-              <span style={{ fontSize: "12px", color: "#444" }}>({product?.ratings?.length || 0})</span>
-            </div>
-          )}
-        </div>
+  <div className="productCard__price">
+    {currency} {price}
+  </div>
+  {product?.ratings?.length > 0 && (
+    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+      <div style={{ backgroundColor: getRatingColor(avgRating), color: "#fff", padding: "2px 6px", borderRadius: "4px", display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", fontWeight: "bold" }}>
+        <span>{avgRating.toFixed(1)}</span>
+        <FaStar size={10} />
+      </div>
+      <span style={{ fontSize: "12px", color: "#444" }}>({product?.ratings?.length || 0})</span>
+    </div>
+  )}
+</div>
 
         {totalStock <= 0 ? (
           <div style={{ color: "red", fontWeight: "700", fontSize: "14px", marginTop: "12px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
