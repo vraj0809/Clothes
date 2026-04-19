@@ -173,8 +173,8 @@ const Productdetail = () => {
     <FaStar size={12} color="#fff" />
   </div>
 )}
-                <span style={{ fontSize: "14px", color: "rgb(0, 0, 0)" }}>
-                  {productdata.ratings?.length || 0} Review{productdata.ratings?.length !== 1 ? 's' : ''}
+                <span style={{ fontSize: "14px", color: "#444" }}>
+                  {productdata?.ratings?.length || 0} Review{(productdata?.ratings?.length || 0) !== 1 ? 's' : ''}
                 </span>
               </div>
 

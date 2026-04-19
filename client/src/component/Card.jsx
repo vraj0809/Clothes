@@ -93,7 +93,7 @@ const Card = ({ name, image, id, price }) => {
                 <span>{avgRating.toFixed(1)}</span>
                 <FaStar size={10} />
               </div>
-              <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>({product.ratings.length})</span>
+              <span style={{ fontSize: "12px", color: "#444" }}>({product?.ratings?.length || 0})</span>
             </div>
           )}
         </div>
