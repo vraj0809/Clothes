@@ -177,6 +177,7 @@ export const removeproduct = async (req, res) => {
 
 export const filterproduct = async (req, res) => {
   try {
+
     const { category, subcategory, sort, maxprice, search } = req.query;
 
     const filter = {};
@@ -191,7 +192,7 @@ export const filterproduct = async (req, res) => {
 
     if (search) {
       filter.$or = [
-        { category: { $regex: search, $options: "i" } },
+         { category: { $regex: search, $options: "i" } },
         { subcategory: { $regex: search, $options: "i" } },
         { name: { $regex: search, $options: "i" } },
         { brand: { $regex: search, $options: "i" } }
@@ -202,28 +203,17 @@ export const filterproduct = async (req, res) => {
       filter.price = { $lt: Number(maxprice) };
     }
 
-    let pipeline = [
-      { $match: filter },
-      {
-        $addFields: {
-          avgrating: { $ifNull: ["$avgrating", 0] }
-        }
-      }
-    ];
+    let sortOption = {};
 
-    if (sort === "price_asc") {
-      pipeline.push({ $sort: { price: 1 } });
-    } else if (sort === "price_desc") {
-      pipeline.push({ $sort: { price: -1 } });
-    } else if (sort === "rating_desc") {
-      pipeline.push({ $sort: { avgrating: -1 } });
-    } else if (sort === "latest") {
-      pipeline.push({ $sort: { createdAt: -1 } });
-    }
+    if (sort === "price_asc") sortOption.price = 1;
+    if (sort === "price_desc") sortOption.price = -1;
+    if (sort === "rating_desc") sortOption.avgrating = -1;
+    if (sort === "latest") sortOption.createdAt = -1;
 
-    const products = await Product.aggregate(pipeline);
+    const products = await Product.find(filter).sort(sortOption);
 
     res.status(200).json(products);
+
   } catch (error) {
     res.status(500).json({ message: "Filter problem" });
   }
@@ -247,55 +237,39 @@ export const rating = async (req, res) => {
   try {
     const { id } = req.params;
     const { rating, comment } = req.body;
-
     const product = await Product.findById(id);
-
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    const existingRatingIndex = product.ratings.findIndex(
-      (r) => r.userId === req.userId
-    );
+    const existingRatingIndex = product.ratings.findIndex(r => r.userId === req.userId);
 
     if (existingRatingIndex !== -1) {
       product.ratings[existingRatingIndex].rating = rating;
       product.ratings[existingRatingIndex].comment = comment;
       product.ratings[existingRatingIndex].date = Date.now();
-      product.markModified("ratings");
+      product.markModified('ratings');
     } else {
       product.ratings.push({
         userId: req.userId,
-        rating,
-        comment,
-        date: Date.now(),
+        rating: rating,
+        comment: comment,
+        date: Date.now()
       });
     }
 
-    const totalRating = product.ratings.reduce(
-      (sum, r) => sum + r.rating,
-      0
-    );
-
-    const avgRating =
-      product.ratings.length > 0
-        ? totalRating / product.ratings.length
-        : 0;
+    const totalRating = product.ratings.reduce((sum, r) => sum + r.rating, 0);
+    const avgRating = product.ratings.length > 0 ? totalRating / product.ratings.length : 0;
 
     product.avgrating = Number(avgRating.toFixed(1));
     product.bestseller = product.avgrating >= 4;
 
     await product.save();
-
-    return res.status(200).json({
-      message: "Rating added successfully",
-      avgrating: product.avgrating,
-      bestseller: product.bestseller,
-    });
+    return res.status(200).json({ message: "Rating added successfully", avgrating: product.avgrating, bestseller: product.bestseller })
   } catch (error) {
-    return res.status(500).json({ message: "Error in rating", error });
+    return res.status(500).json({ message: "Error in rating", error })
   }
-};
+}
 
 export const ratingcount = async (req, res) => {
   try {
