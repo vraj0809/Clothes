@@ -87,7 +87,7 @@ const Card = ({ name, image, id, price }) => {
           <div className="productCard__price">
             {currency} {price}
           </div>
-          {avgRating > 0 && (
+          {product?.ratings?.length > 0 && (
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               <div style={{ backgroundColor: getRatingColor(avgRating), color: "#fff", padding: "2px 6px", borderRadius: "4px", display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", fontWeight: "bold" }}>
                 <span>{avgRating.toFixed(1)}</span>
