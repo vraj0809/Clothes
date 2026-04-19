@@ -50,16 +50,21 @@ const Productdetail = () => {
       setAvgRating(0)
       return
     }
-    if (typeof productdata.avgrating === 'number') {
-      setAvgRating(productdata.avgrating)
+
+    const ratingCount = productdata?.ratings?.length || 0
+    if (ratingCount > 0) {
+      const dbAvg = Number(productdata.avgrating)
+      if (!Number.isNaN(dbAvg) && dbAvg > 0) {
+        setAvgRating(dbAvg)
+        return
+      }
+
+      const sum = productdata.ratings.reduce((acc, curr) => acc + Number(curr.rating || 0), 0)
+      setAvgRating(sum / ratingCount)
       return
     }
-    if (!productdata?.ratings || productdata.ratings.length === 0) {
-      setAvgRating(0)
-      return
-    }
-    const sum = productdata.ratings.reduce((acc, curr) => acc + curr.rating, 0)
-    setAvgRating(sum / productdata.ratings.length)
+
+    setAvgRating(0)
   }, [productdata])
 
   const getRatingColor = (rate) => {

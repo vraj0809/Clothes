@@ -21,16 +21,21 @@ const Card = ({ name, image, id, price }) => {
       setAvgRating(0)
       return
     }
-    if (typeof product.avgrating === 'number') {
-      setAvgRating(product.avgrating)
+
+    const ratingCount = product?.ratings?.length || 0
+    if (ratingCount > 0) {
+      const dbAvg = Number(product.avgrating)
+      if (!Number.isNaN(dbAvg) && dbAvg > 0) {
+        setAvgRating(dbAvg)
+        return
+      }
+
+      const sum = product.ratings.reduce((acc, curr) => acc + Number(curr.rating || 0), 0)
+      setAvgRating(sum / ratingCount)
       return
     }
-    if (!product?.ratings || product.ratings.length === 0) {
-      setAvgRating(0)
-      return
-    }
-    const sum = product.ratings.reduce((acc, curr) => acc + curr.rating, 0)
-    setAvgRating(sum / product.ratings.length)
+
+    setAvgRating(0)
   }, [product])
 
   useEffect(() => {
