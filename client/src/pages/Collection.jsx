@@ -40,20 +40,7 @@ const Collection = () => {
     fetchFilteredProducts();
   }, [category, subcategory, search, sorttype, showsearch]);
 
-  const sortedProducts = useMemo(() => {
-    if (sorttype === "rating_desc") {
-      let sortableItems = [...filterproduct];
-      sortableItems.sort((a, b) => {
-        const aAvg = a.ratings?.length ? a.ratings.reduce((sum, r) => sum + r.rating, 0) / a.ratings.length : 0;
-        const bAvg = b.ratings?.length ? b.ratings.reduce((sum, r) => sum + r.rating, 0) / b.ratings.length : 0;
-        return bAvg - aAvg;
-      });
-      return sortableItems;
-    }
-    
-    // For price and latest, rely on the backend sorted data
-    return filterproduct;
-  }, [filterproduct, sorttype]);
+  const sortedProducts = useMemo(() => filterproduct, [filterproduct]);
 
   return (
     <div className="collectionPage" >

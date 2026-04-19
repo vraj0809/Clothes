@@ -46,13 +46,21 @@ const Productdetail = () => {
   }, [image1, image2, image3, image4])
 
   useEffect(() => {
+    if (!productdata) {
+      setAvgRating(0)
+      return
+    }
+    if (typeof productdata.avgrating === 'number') {
+      setAvgRating(productdata.avgrating)
+      return
+    }
     if (!productdata?.ratings || productdata.ratings.length === 0) {
       setAvgRating(0)
       return
     }
     const sum = productdata.ratings.reduce((acc, curr) => acc + curr.rating, 0)
     setAvgRating(sum / productdata.ratings.length)
-  }, [productdata?.ratings])
+  }, [productdata])
 
   const getRatingColor = (rate) => {
     if (rate >= 4) return "#388e3c";
@@ -122,7 +130,7 @@ const Productdetail = () => {
           <div className="productDetail__media">
             <div className="media" aria-label="Selected product image">
               <img src={image} alt={productdata.name} className="media__img" decoding="async" />
-              {avgRating >= 4 && <div className="bestsellerBadge">Bestseller</div>}
+              {(productdata?.bestseller === true || avgRating >= 4) && <div className="bestsellerBadge">Bestseller</div>}
             </div>
           </div>
 

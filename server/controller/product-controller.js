@@ -207,6 +207,7 @@ export const filterproduct = async (req, res) => {
 
     if (sort === "price_asc") sortOption.price = 1;
     if (sort === "price_desc") sortOption.price = -1;
+    if (sort === "rating_desc") sortOption.avgrating = -1;
     if (sort === "latest") sortOption.createdAt = -1;
 
     const products = await Product.find(filter).sort(sortOption);
@@ -257,8 +258,14 @@ export const rating = async (req, res) => {
       });
     }
 
+    const totalRating = product.ratings.reduce((sum, r) => sum + r.rating, 0);
+    const avgRating = product.ratings.length > 0 ? totalRating / product.ratings.length : 0;
+
+    product.avgrating = Number(avgRating.toFixed(1));
+    product.bestseller = product.avgrating >= 4;
+
     await product.save();
-    return res.status(200).json({ message: "Rating added successfully" })
+    return res.status(200).json({ message: "Rating added successfully", avgrating: product.avgrating, bestseller: product.bestseller })
   } catch (error) {
     return res.status(500).json({ message: "Error in rating", error })
   }

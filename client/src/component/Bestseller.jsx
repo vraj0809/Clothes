@@ -8,12 +8,11 @@ const Bestseller = () => {
   const [bestseller, setBestseller] = useState([])
 
   useEffect(() => {
-    setBestseller(products.filter((item) => {
-      if (!item.ratings || item.ratings.length === 0) return false;
-      const sum = item.ratings.reduce((acc, curr) => acc + curr.rating, 0);
-      const avgRating = sum / item.ratings.length;
-      return avgRating >= 4;
-    }).slice(0, 4))
+    if (Array.isArray(products) && products.length > 0) {
+      setBestseller(products.filter((item) => item.bestseller === true || item.avgrating >= 4).slice(0, 4))
+    } else {
+      setBestseller([])
+    }
   }, [products])
 
   return (

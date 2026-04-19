@@ -51,9 +51,10 @@ const productschema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    // bestseller: {
-    //     type: Boolean,
-    // },
+    bestseller: {
+        type: Boolean,
+        default: false,
+    },
     numberofproducts: {
         S: { type: Number, default: 0 },
         M: { type: Number, default: 0 },
@@ -68,7 +69,11 @@ const productschema = new mongoose.Schema({
             comment: { type: String },
             date: { type: Date, default: Date.now }
         }
-    ]
+    ],
+avgrating: {
+        type: Number,
+        default: 0,
+    }
 }, { timestamps: true })
 
 const Product = mongoose.model("Product", productschema)

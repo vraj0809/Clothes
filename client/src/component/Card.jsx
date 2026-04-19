@@ -17,13 +17,21 @@ const Card = ({ name, image, id, price }) => {
   }, [products, id])
 
   useEffect(() => {
+    if (!product) {
+      setAvgRating(0)
+      return
+    }
+    if (typeof product.avgrating === 'number') {
+      setAvgRating(product.avgrating)
+      return
+    }
     if (!product?.ratings || product.ratings.length === 0) {
       setAvgRating(0)
       return
     }
     const sum = product.ratings.reduce((acc, curr) => acc + curr.rating, 0)
     setAvgRating(sum / product.ratings.length)
-  }, [product?.ratings])
+  }, [product])
 
   useEffect(() => {
     if (!product?.numberofproducts) {
@@ -64,7 +72,7 @@ const Card = ({ name, image, id, price }) => {
     <div className="productCard" onClick={() => navigate(`/productdetail/${id}`)} role="link" tabIndex={0}>
       <div className="productCard__media">
         <img src={image} alt={name} className="productCard__img" loading="lazy" decoding="async" />
-        {avgRating >= 4 && <div className="bestsellerBadge">Bestseller</div>}
+        {(product?.bestseller === true || avgRating >= 4) && <div className="bestsellerBadge">Bestseller</div>}
       </div>
 
       <div className="productCard__body">
