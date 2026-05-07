@@ -9,7 +9,7 @@
 </p>
 
 ## 🔗 Live Demo
-**[Click here to view the live demo](#)** *(Replace # with your actual deployment link)*
+**[Click here to view the live demo](#)**
 
 ---
 
@@ -144,21 +144,4 @@ Run the admin app:
 npm run dev
 ```
 
----
 
-## 📸 Screenshots
-
-- **Home Page**
-  - `![Home Page Screenshot](./assets/home.png)`
-- **Product Details**
-  - `![Product Details Screenshot](./assets/product.png)`
-- **Admin Dashboard**
-  - `![Admin Dashboard Screenshot](./assets/admin.png)`
-
----
-
-## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page if you want to contribute.
-
-## 📝 License
-This project is open-source and available under the **ISC License**.
