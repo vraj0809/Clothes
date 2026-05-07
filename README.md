@@ -3,17 +3,19 @@
 <p align="center">
   <img src="https://img.shields.io/badge/MERN-Stack-blue?style=for-the-badge&logo=react" alt="MERN Stack">
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite">
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
   <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
 </p>
 
+## 🔗 Live Demo
+**[Click here to view the live demo](#)** *(Replace # with your actual deployment link)*
+
+---
+
 ## 📖 Overview
 
-**Clothes** is a comprehensive, production-ready E-commerce web application built using the modern **MERN stack** (MongoDB, Express, React, Node.js) combined with **Vite** for blazing fast frontend tooling. It provides a complete end-to-end shopping experience featuring secure authentication, product browsing, a seamless shopping cart, and an integrated payment gateway. 
-
-This project aims to showcase robust full-stack architecture, making it an excellent resource for MERN stack learners and a demonstration of practical, scalable coding practices for tech recruiters.
+**Clothes** is a comprehensive, production-ready E-commerce web application built using the modern **MERN stack** (MongoDB, Express, React, Node.js) combined with **Vite** for fast frontend tooling. It provides a complete end-to-end shopping experience featuring secure authentication, product browsing, a seamless shopping cart, and an integrated payment gateway.
 
 ---
 
@@ -31,7 +33,7 @@ This project aims to showcase robust full-stack architecture, making it an excel
 - **Protected Routes:** Secure access for administrative tasks only.
 - **Product Management:** Full CRUD operations (Add, View, Update, Delete) for products.
 - **Media Handling:** Direct image uploads to **Cloudinary** ensuring fast and scalable image delivery.
-- **Modern UI:** Built with **Tailwind CSS** for a clean, intuitive, and professional administrative interface.
+- **Modern UI:** Clean, intuitive, and professional administrative interface.
 
 ### ⚙️ Backend (Server API)
 - **RESTful API Architecture:** Clean, modularized Express.js server routes.
@@ -49,7 +51,7 @@ The project follows a monorepo-style structure, separating concerns cleanly:
 ```text
 clothes/
 ├── client/           # Frontend React App (Vite)
-├── admin/            # Admin Dashboard React App (Vite + Tailwind)
+├── admin/            # Admin Dashboard React App (Vite)
 └── server/           # Backend API (Node.js + Express)
 ```
 
@@ -59,7 +61,7 @@ clothes/
 
 ### Frontend (`/client` & `/admin`)
 - **Core:** React 19, React Router DOM, Vite
-- **Styling:** Tailwind CSS (Admin), Custom CSS (Client)
+- **Styling:** Custom CSS
 - **State/Requests:** Axios
 - **Third-Party:** Firebase (Auth), React Icons, React Toastify
 
@@ -145,7 +147,6 @@ npm run dev
 ---
 
 ## 📸 Screenshots
-*(HR and Learners: You can add screenshots of your application here. Good screenshots significantly increase repository engagement!)*
 
 - **Home Page**
   - `![Home Page Screenshot](./assets/home.png)`
@@ -153,16 +154,6 @@ npm run dev
   - `![Product Details Screenshot](./assets/product.png)`
 - **Admin Dashboard**
   - `![Admin Dashboard Screenshot](./assets/admin.png)`
-
----
-
-## 🧠 What I Learned (For Learners & HR)
-Building this project allowed me to deeply understand and implement:
-1. **State Management & Routing:** Managing complex application states across different user journeys utilizing React Hooks and React Router.
-2. **Third-Party API Integration:** Effectively working with external services like Razorpay for payments and Cloudinary for media storage.
-3. **Security Best Practices:** Implementing secure authentication flows using JWT, bcrypt for password hashing, and protecting backend routes.
-4. **Full-Stack Deployment:** Preparing and optimizing separate React applications alongside a Node backend for production.
-5. **Modern Build Tools:** Leveraging Vite for rapid frontend development and tailored bundling.
 
 ---
 
